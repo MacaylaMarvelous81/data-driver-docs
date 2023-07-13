@@ -32,6 +32,13 @@ jobs:
         run: |
           pip install mkdocs-material
         shell: bash
+      - name: Build
+        run: |
+          mkdocs build
+        shell: bash
+      - uses: actions/upload-pages-artifact@v2.0.0
+        with:
+          path: ./site
   deploy:
     runs-on: ubuntu-latest
     needs: build
@@ -42,8 +49,5 @@ jobs:
       name: docs
       url: ${{ steps.deploy.outputs.url }}
     steps:
-      - uses: actions/upload-pages-artifact@v2.0.0
-        with:
-          path: .
       - uses: actions/deploy-pages@v2.0.3
         id: deploy
