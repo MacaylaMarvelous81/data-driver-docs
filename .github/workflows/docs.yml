@@ -1,0 +1,44 @@
+name: Documentation
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: write
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3.5.3
+      - uses: actions/setup-python@v4.6.1
+        with:
+          python-version: 3.x
+      - name: Generate cache id
+        id: cache-id
+        run: |
+          echo "cache-id=$(date --utc '+%V')" >> $GITHUB_OUTPUT
+        shell: bash
+      - uses: actions/cache@v3.3.1
+        id: cache
+        with:
+          key: data-driver-docs-${{ steps.cache-id.outputs.cache-id }}
+          path: .cache
+          restore-keys: |
+            data-driver-docs-
+      - name: Install dependencies
+        run: |
+          sudo apt install pngquant
+        shell: bash
+      - name: Install Python dependencies
+        run: |
+          pip install mkdocs-material
+        shell: bash
+      - name: Deploy docs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdocs gh-deploy
+          mkdocs --version
+        shell: bash
