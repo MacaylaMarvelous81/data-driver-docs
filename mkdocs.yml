@@ -1,0 +1,33 @@
+site_name: Data Driver Docs
+site_url: https://datadriver.jomarm.tech/docs
+repo_url: https://github.com/MacaylaMarvelous81/data-driver-docs
+site_description: Documentation for Data Driver, a library for Crypt of the Necrodancer mods.
+site_author: Jomar Milan
+copyright: Copyright &copy; 2023 Jomar Milan
+theme:
+  name: material
+  palette:
+    scheme: slate
+  features:
+    - content.code.annotate
+nav:
+  - index.md
+  - Introduction:
+    - intro/intro.md
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: "#"
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+      auto_title: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
